@@ -22,6 +22,7 @@ int main() {
 	
 	//copyStr1(str1, str2);
 	//copyStr2(str1, str2);
+	cout << "LOLo" << endl;
 
 	
 
