@@ -26,7 +26,6 @@ int main() {
 	//cout << strcmp(str1, str2) << endl;
 	cout<<compStr2(str1, str2)<<endl;
 	//cout << str1 << endl;
-	;;
 
 	return 0;
 }
