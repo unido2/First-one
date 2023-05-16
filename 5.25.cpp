@@ -35,6 +35,7 @@ void makeLaby(int lby[][12], const int* size)
 		for (int j = 1; j < *size-1; j++)
 				lby[i][j] = 1;
 	}
+	///...
 	cout << "HEH" << endl;
 	randExitEntr(&exi, &entr);
 	lby[entr][11] = 1;
