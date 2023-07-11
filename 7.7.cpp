@@ -10,9 +10,10 @@ int main() {
 	
 
 	cout << "date: " << Date::getCount() << endl;
-	date1->printF3();
-	date2->printF3();
-	date3->printF3();
+
+	date1->printF3().printF1().printF2();
+	//date2->printF3();
+	//date3->printF3();
 
 	delete date1;
 	delete date2;

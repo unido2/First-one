@@ -9,9 +9,9 @@ public:
 	
 	~Date();
 
-	void printF1() const;
-	void printF2()const;
-	void printF3() const;
+	Date &printF1();
+	Date &printF2();
+	Date &printF3();
 
 private:
 	int day, month, year;

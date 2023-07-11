@@ -117,17 +117,21 @@ int Date::checkDay(int da) {
 	return 1;
 }
 
-void Date::printF1() const {
+ Date &Date::printF1() {
 	cout << (day>=10 ?"": "0") << day << " " << year << endl;
+	return *this;
 }
 
-void Date::printF2() const {
+Date &Date::printF2() {
 	cout << (month>=10 ? "" : "0")<<month
 		<<"/"<<(day >=10 ? "" : "0")<<day << "/" 
 		<< (year%100>=10?"":"0")<< year % 100 << endl;
+	return *this;
 }
 
-void Date::printF3() const {
+Date &Date::printF3() {
 	cout << monthName[month-1] <<" "<< (day % 10 < 0 ? "0" : "")
 		<< day << ", " << year << endl;
+	return *this;
 }
+
