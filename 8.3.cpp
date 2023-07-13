@@ -34,24 +34,26 @@ int main() {
 	_CrtMemState sOld,sNew,sDiff;
 	_CrtMemCheckpoint(&sOld);
 
+	int end;
 	PhoneNumber** ph = new PhoneNumber*[1000];
 	for (int i = 0; i < 1000; i++)
 		ph[i] = new PhoneNumber;
 
 	
+	for (int i = 0; i < 5; i++)
+		cin >> *ph[i];
 
-	cin >> *ph[1];
+	for (int i = 0; i < 5; i++) {
+		cout << "number is: " << *ph[i] << endl;
+		cout << ph[i]->areaCode << " " << ph[i]->exchange << " " << ph[i]->line << endl;
+	}
 
-	cout << "number is: " << *ph[1] << endl;
-	cout << ph[1]->areaCode << " " << ph[1]->exchange << " " << ph[1]->line << endl;
-	
 	for (int i = 0; i < 1000; i++)
 		delete ph[i];
 	delete[] ph;
 
 
 	_CrtMemCheckpoint(&sNew);
-
 	if (_CrtMemDifference(&sDiff, &sOld, &sNew)) // if there is a difference
 	{
 		OutputDebugString(L"-----------_CrtMemDumpStatistics ---------");
@@ -61,5 +63,6 @@ int main() {
 		OutputDebugString(L"-----------_CrtDumpMemoryLeaks ---------");
 		_CrtDumpMemoryLeaks();
 	}
+
 	return 0;
 }
