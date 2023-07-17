@@ -4,16 +4,17 @@
 #include<iostream>
 
 class Date {
-	friend ostream& operator<<(ostream&, const Date&);
+	friend std::ostream& operator<<(std::ostream&, const Date&);
 public:
 	Date(int m=1,int d=1, int y=1900);
+	void setDate(int, int, int);
+	Date operator++();
+	Date operator++(int);
+	const Date& operator+=(int);
+
+	int leapYear(int);
+	int endOfMonth(int);
 	
-	~Date();
-
-	void printF1() const;
-	void printF2()const;
-	void printF3() const;
-
 private:
 	int day, month, year;
 	static int days[];

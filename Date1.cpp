@@ -70,19 +70,13 @@ void Date::helpIncrement()
 
 }
 
-void Date::printF1() const {
-	cout << (day>=10 ?"": "0") << day << " " << year << endl;
-}
+ostream& operator<<(ostream& output, const Date& d)
+{
+	static const char *monthName[]= { "","January", "Feburary", "March", "April",
+"May", "June", "July", "August",
+"September", "October", "November", "December" };
 
-Date &Date::printF2() {
-	cout << (month>=10 ? "" : "0")<<month
-		<<"/"<<(day >=10 ? "" : "0")<<day << "/" 
-		<< (year%100>=10?"":"0")<< year % 100 << endl;
-	return *this;
-}
+	output << monthName[d.month] << " " << d.day << ", " << d.year;
 
-Date &Date::printF3() {
-	cout << monthName[month-1] <<" "<< (day % 10 < 0 ? "0" : "")
-		<< day << ", " << year << endl;
-	return *this;
+	return output;
 }
