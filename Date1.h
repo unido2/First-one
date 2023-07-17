@@ -1,11 +1,12 @@
 #ifndef DATE1_H
 #define DATE1_H
+
+#include<iostream>
+
 class Date {
+	friend ostream& operator<<(ostream&, const Date&);
 public:
-	Date();
-	Date(int, int, int);
-	Date(const char*, int, int);
-	static int getCount();
+	Date(int m=1,int d=1, int y=1900);
 	
 	~Date();
 
@@ -15,10 +16,9 @@ public:
 
 private:
 	int day, month, year;
-	static int count;
-	const char** monthName;
-
-	int checkDay(int);
+	static int days[];
+	
+	void helpIncrement();
 };
 #endif // !DATE1_H
 

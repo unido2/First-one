@@ -1,133 +1,88 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
-#include <string.h>
-#include<time.h>
 #include "Date1.h"
-
 
 using namespace std;
 
-int Date::count = 0;
+int Date::days[] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
 
-int Date::getCount() {
-	return count;
-}
+Date::Date(int m, int d, int y) { setDate(m, d, y); }
 
-Date::Date()
-
+void Date::setDate(int mm, int dd, int yy)
 {
-	monthName = new const char* [12] { "January", "Feburary", "March", "April",
-		"May", "June", "July", "August", "September", "October", "November", "December" };
-	
-	time_t mytime = time(NULL);
-	struct tm* tiime = localtime(&mytime);
-
-	day = tiime->tm_mday;
-	month = tiime->tm_mon + 1;
-	year = 1900 + tiime->tm_year;
-
-	++count;
-	cout << "Constructor of object Date3" << endl;
+	month = (mm >= 1 && mm <= 12) ? mm : 1;
+	year = (yy >= 1900 && yy <= 2100) ? yy : 1900;
+	if (month == 2 && leapYear(year))
+		day = (dd >= 1 && dd <= 29) ? dd : 1;
+	else
+		day = (dd >= 1 && dd <= days[month]) ? dd : 1;
 }
 
-//constructor 1
-Date::Date(int d, int m, int y)
+Date Date::operator++()
 {
-	monthName = new const char* [12] { "January", "Feburary", "March", "April",
-		"May", "June", "July", "August", "September", "October", "November", "December" };
+	helpIncrement();
+	return *this;
+}
 
-	if (m > 0 && m <= 12)
-		month = m;
-	else {
+Date Date::operator++(int)
+{
+	Date temp = *this;
+	helpIncrement();
+	return temp;
+}
+
+const Date& Date::operator+=(int additionalDays)
+{
+	for (int i = 1; i <= additionalDays; i++)
+		helpIncrement();
+	return *this;
+}
+
+int Date::leapYear(int y)
+{
+	if (y % 400 == 0 || (y % 100 != 0 && y == 0))
+		return 1;
+	else
+		return 0;
+}
+
+int Date::endOfMonth(int d)
+{
+	if (month == 2 && leapYear(year))
+		return d == 29;
+	else
+		return d==days[month];
+}
+
+void Date::helpIncrement()
+{
+	if (endOfMonth(day) && month == 12) {
+		day = 1;
 		month = 1;
-		cout << "Month " << m << " isn't right. Set month to 1" << endl;
+		++year;
 	}
-	if (y > 1900 && y <= 2100)
-		year = y;
-	else {
-		year = 1;
-		cout << "Year " << y << " isn't right. Set year to 1" << endl;
+	else if (endOfMonth(day)) {
+		day = 1;
+		++month;
 	}
-	day = checkDay(d);
+	else
+		++day;
 
-	cout << "Constructor of object Date1" << endl;
-	count++;
-}
-
-//constructor 2
-Date::Date(const char* m, int d, int y) {
-
-	monthName = new const char* [12] { "January", "Feburary", "March", "April",
-		"May","June","July","August","September","October","November","December" };
-
-	int countL = 0;
-	
-	//zaglavnaya bukva
-	char *a=new char[strlen(m)+1];
-	strcpy(a, m);
-	a[0]=toupper(a[0]);
-
-
-	for (int i = 0; i < 12; i++) {
-		if (strcmp(a,monthName[i])==0) {
-			countL++;
-			month = i+1;
-			break;
-		}
-	}
-	if (countL == 0) {
-		month = 1;
-		cout << "Month " << m << " isn't right. Set month to 1" << endl;
-	}
-	if (y > 1900 && y <= 2100)
-		year = y;
-	else {
-		year = 1;
-		cout << "Year " << y << " isn't right. Set year to 1" << endl;
-	}
-	day = checkDay(d);
-
-	cout << "Constructor of object Date2" << endl;
-	delete[] a;
-	count++;
-}
-
-
-//DESTRUCTOR
-Date::~Date() {
-	
-	delete[] monthName;
-	--count;
-	cout << "destructor done" << endl;
-}
-
-//proverka dnya
-int Date::checkDay(int da) {
-
-	int daysPerMonth[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
-
-	if (da > 0 && da <= daysPerMonth[month])
-		return da;
-	if (month == 2 && da == 29 && (year % 400 == 0 ||
-		(year % 4 == 0 && year % 100 != 0)))
-		return da;
-	
-	cout << "Day " << da << " isn't right. Set day to 1" << endl;
-
-	return 1;
 }
 
 void Date::printF1() const {
 	cout << (day>=10 ?"": "0") << day << " " << year << endl;
 }
 
-void Date::printF2() const {
+Date &Date::printF2() {
 	cout << (month>=10 ? "" : "0")<<month
 		<<"/"<<(day >=10 ? "" : "0")<<day << "/" 
 		<< (year%100>=10?"":"0")<< year % 100 << endl;
+	return *this;
 }
 
-void Date::printF3() const {
+Date &Date::printF3() {
 	cout << monthName[month-1] <<" "<< (day % 10 < 0 ? "0" : "")
 		<< day << ", " << year << endl;
+	return *this;
 }
