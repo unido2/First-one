@@ -1,7 +1,7 @@
 #ifndef Array2
 #define ARRAY2_H
 #include<iostream>
-
+#include<iomanip>
 class Array2 {
 	friend std::ostream& operator<<(std::ostream&, Array2&);
 public:
@@ -10,7 +10,8 @@ public:
 	~Array2();
 	Array2& operator()(int,int);
 	Array2 operator+(Array2&);
-
+	int& operator=(int);
+	int& operator[](int);
 
 private:
 	

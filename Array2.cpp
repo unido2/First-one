@@ -14,6 +14,7 @@ Array2::Array2(int r, int c)
     for (int i = 0; i < this->row; i++)
         for (int j = 0; j < this->col; j++)
             this->ptr[i][j] = 0;
+   
 }
 
 Array2::~Array2()
@@ -65,12 +66,25 @@ Array2 Array2::operator+(Array2&)
     return Array2();
 }
 
+int& Array2::operator=(int right)
+{
+    return *this= right;
+}
+
+int& Array2::operator[](int i)
+{
+    int tmp1 = i / 10;
+    int tmp2 = i % 10;
+
+    return ptr[tmp1][tmp2];
+}
+
 
 std::ostream& operator<<(std::ostream& out, Array2& a)
 {
     for (int i = 0; i < a.row; i++) {
         for (int j = 0; j < a.col; j++)
-            out << a.ptr[i][j] << " ";
+            out << std::setw(4) << a.ptr[i][j] << " ";
         out << std::endl;
     }
 

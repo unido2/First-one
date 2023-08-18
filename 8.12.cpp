@@ -7,10 +7,12 @@ int main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	using namespace std;
 
-	Array2 a;
+	Array2 a(5,6);
 
-	a(3,4);
+
+	a[03] = 100;
 	cout << a << endl;
+	cout << a[03] << endl;
 	
 	return 0;
 }
