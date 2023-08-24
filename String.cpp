@@ -94,7 +94,8 @@ int String::operator<=(const String& right) const
 
 char& String::operator[](int sub)
 {
-	assert(sub >= 0 && sub < length);
+	if (sub < 0 || sub >= length)
+		throw "You are requesting string[> i <] char that is out of its limits";
 
 	return sPtr[sub];
 }
